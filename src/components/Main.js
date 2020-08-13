@@ -1,28 +1,54 @@
 import React from 'react';
 
 function Main() {
+    // handleEditAvatarClick;
+    // handleEditProfileClick;
+    // handleAddPlaceClick;
+    function handleEditAvatarClick() {
+      document
+        .querySelector('.form--change-image')
+        .classList.add('form_visible');
+    }
+
+    function handleEditProfileClick() {
+      document
+        .querySelector('.form__edit-profile')
+        .classList.add("form_visible");
+    }
+
+    function handleAddPlaceClick() {
+      document.querySelector('.form__add-card')
+      .classList.add("form_visible");
+    }
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__container">
           <div className="profile__image-container">
-            <div className="profile__image-edit"></div>
+            {/* <div className="profile__image-edit"></div> */}
+            <button
+              className="profile__image-edit"
+              aria-label="Update profile image"
+              onClick={handleEditAvatarClick}
+            ></button>
             <img className="profile__image" src="#" alt="profile-picture" />
           </div>
           <div className="profile__info">
             <div className="profile__text">
-              <h1 className="profile__title">Jacques Cousteau</h1>
-              <p className="profile__subtitle">Explorer</p>
+              <h1 className="profile__title">Linda Kovacs</h1>
+              <p className="profile__subtitle">Web Developer</p>
             </div>
             <button
               className="button profile__edit-button"
               aria-label="Edit button"
+              onClick={handleEditProfileClick}
             ></button>
           </div>
         </div>
         <button
           className="button profile__add-button"
           aria-label="Add button"
+          onClick={handleAddPlaceClick}
         ></button>
       </section>
       <section className="cards">
