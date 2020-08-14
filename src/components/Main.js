@@ -1,12 +1,10 @@
 import React from 'react';
+import PopupWithForm from "./PopupWithForm";
 
 function Main() {
-    // handleEditAvatarClick;
-    // handleEditProfileClick;
-    // handleAddPlaceClick;
     function handleEditAvatarClick() {
       document
-        .querySelector('.form--change-image')
+        .querySelector('.form__change-image')
         .classList.add('form_visible');
     }
 
@@ -25,7 +23,6 @@ function Main() {
       <section className="profile">
         <div className="profile__container">
           <div className="profile__image-container">
-            {/* <div className="profile__image-edit"></div> */}
             <button
               className="profile__image-edit"
               aria-label="Update profile image"
@@ -56,112 +53,86 @@ function Main() {
       </section>
 
       {/* Edit profile */}
-      <section className="form form__edit-profile">
-        <form
-          className="form__container"
-          name="form__edit-profile"
-          action="#"
-          novalidate
-        >
+      <PopupWithForm name="edit-profile" title="Edit profile">
+        <fieldset className="form__fields">
+          <label for="name-input">
+            <input
+              type="text"
+              className="form__input form__title"
+              id="name-input"
+              name="name"
+              placeholder="Name"
+              value="Jacques Cousteau"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span className="form__input-error" id="name-input-error"></span>
+          </label>
+          <label for="job-input">
+            <input
+              type="text"
+              className="form__input form__subtitle"
+              id="job-input"
+              name="job"
+              placeholder="Job"
+              value="Explorer"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span className="form__input-error" id="job-input-error"></span>
+          </label>
           <button
-            className="form__reset-button"
-            type="reset"
-            aria-label="Close button"
-          ></button>
-          <h2 className="form__header">Edit profile</h2>
-          <fieldset className="form__fields">
-            <label for="name-input">
-              <input
-                type="text"
-                className="form__input form__title"
-                id="name-input"
-                name="name"
-                placeholder="Name"
-                value="Jacques Cousteau"
-                minlength="2"
-                maxlength="40"
-                required
-              />
-              <span className="form__input-error" id="name-input-error"></span>
-            </label>
-            <label for="job-input">
-              <input
-                type="text"
-                className="form__input form__subtitle"
-                id="job-input"
-                name="job"
-                placeholder="Job"
-                value="Explorer"
-                minlength="2"
-                maxlength="200"
-                required
-              />
-              <span className="form__input-error" id="job-input-error"></span>
-            </label>
-            <button
-              className="form__submit-button"
-              type="submit"
-              value="Save"
-              aria-label="Save button"
-            >
-              Save
-            </button>
-          </fieldset>
-        </form>
-      </section>
+            className="form__submit-button"
+            type="submit"
+            value="Save"
+            aria-label="Save button"
+          >
+            Save
+          </button>
+        </fieldset>
+      </PopupWithForm>
 
       {/* Add new place */}
-      <section className="form form__add-card">
-        <form
-          className="form__container"
-          name="form__add-card"
-          action="#"
-          novalidate
-        >
+      <PopupWithForm name="add-card" title="New place">
+        <fieldset className="form__fields">
+          <label for="card-input">
+            <input
+              type="text"
+              className="form__input form__card-title"
+              id="card-input"
+              name="title"
+              placeholder="Title"
+              value=""
+              minlength="1"
+              maxlength="30"
+              required
+            />
+            <span className="form__input-error" id="card-input-error"></span>
+          </label>
+          <label for="link-input">
+            <input
+              type="url"
+              className="form__input form__image-link"
+              id="link-input"
+              name="link"
+              placeholder="Image link"
+              value=""
+              required
+            />
+            <span className="form__input-error" id="link-input-error"></span>
+          </label>
           <button
-            className="form__reset-button"
-            type="reset"
-            aria-label="Close button"
-          ></button>
-          <h2 className="form__header">New Place</h2>
-          <fieldset className="form__fields">
-            <label for="card-input">
-              <input
-                type="text"
-                className="form__input form__card-title"
-                id="card-input"
-                name="title"
-                placeholder="Title"
-                value=""
-                minlength="1"
-                maxlength="30"
-                required
-              />
-              <span className="form__input-error" id="card-input-error"></span>
-            </label>
-            <label for="link-input">
-              <input
-                type="url"
-                className="form__input form__image-link"
-                id="link-input"
-                name="link"
-                placeholder="Image link"
-                value=""
-                required
-              />
-              <span className="form__input-error" id="link-input-error"></span>
-            </label>
-            <button
-              className="form__submit-button"
-              type="submit"
-              value="Create"
-              aria-label="Create button"
-            >
-              Create
-            </button>
-          </fieldset>
-        </form>
-      </section>
+            className="form__submit-button"
+            type="submit"
+            value="Create"
+            aria-label="Create button"
+          >
+            Create
+          </button>
+        </fieldset>
+      </PopupWithForm>
 
       {/* Open image */}
       <div className="form form__add-image">
@@ -177,63 +148,47 @@ function Main() {
       </div>
 
       {/* Delete card */}
-      <div className="form form--delete-image">
-        <form className="form__container" name="delete-image" novalidate>
+      <PopupWithForm name="delete-image" title="Are you sure?">
+        <fieldset className="form__fields form__fields-delete">
           <button
-            className="form__reset-button"
-            type="reset"
-            aria-label="Close button"
-          ></button>
-          <h2 className="form__header">Are you sure?</h2>
-          <fieldset className="form__fields form__fields-delete">
-            <button
-              className="form__submit-button"
-              type="submit"
-              value="Yes"
-              aria-label="Yes button"
-            >
-              Yes
-            </button>
-          </fieldset>
-        </form>
-      </div>
+            className="form__submit-button"
+            type="submit"
+            value="Yes"
+            aria-label="Yes button"
+          >
+            Yes
+          </button>
+        </fieldset>
+      </PopupWithForm>
 
       {/* Change profile picture */}
-      <div className="form form--change-image">
-        <form className="form__container" name="change-image" novalidate>
+      <PopupWithForm name="change-image" title="Change profile picture">
+        <fieldset className="form__fields">
+          <label for="linkImage-input">
+            <input
+              type="url"
+              className="form__input form__image-link"
+              id="linkImage-input"
+              name="imageLink"
+              placeholder="Image link"
+              value=""
+              required
+            />
+            <span
+              className="form__input-error"
+              id="linkImage-input-error"
+            ></span>
+          </label>
           <button
-            className="form__reset-button"
-            type="reset"
-            aria-label="Close button"
-          ></button>
-          <h2 className="form__header">Change profile picture</h2>
-          <fieldset className="form__fields">
-            <label for="linkImage-input">
-              <input
-                type="url"
-                className="form__input form__image-link"
-                id="linkImage-input"
-                name="imageLink"
-                placeholder="Image link"
-                value=""
-                required
-              />
-              <span
-                className="form__input-error"
-                id="linkImage-input-error"
-              ></span>
-            </label>
-            <button
-              className="form__submit-button"
-              type="submit"
-              value="Save"
-              aria-label="Save button"
-            >
-              Save
-            </button>
-          </fieldset>
-        </form>
-      </div>
+            className="form__submit-button"
+            type="submit"
+            value="Save"
+            aria-label="Save button"
+          >
+            Save
+          </button>
+        </fieldset>
+      </PopupWithForm>
 
       {/* Template cards */}
       <template className="card-template">
