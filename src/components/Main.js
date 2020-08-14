@@ -2,23 +2,23 @@ import React from 'react';
 import PopupWithForm from "./PopupWithForm";
 import PopupWithImage from "./PopupWithImage";
 
-function Main() {
-    function handleEditAvatarClick() {
-      document
-        .querySelector('.form__change-image')
-        .classList.add('form_visible');
-    }
+function Main(props) {
+    // function handleEditAvatarClick() {
+    //   document
+    //     .querySelector('.form__change-image')
+    //     .classList.add('form_visible');
+    // }
 
-    function handleEditProfileClick() {
-      document
-        .querySelector('.form__edit-profile')
-        .classList.add("form_visible");
-    }
+    // function handleEditProfileClick() {
+    //   document
+    //     .querySelector('.form__edit-profile')
+    //     .classList.add("form_visible");
+    // }
 
-    function handleAddPlaceClick() {
-      document.querySelector('.form__add-card')
-      .classList.add("form_visible");
-    }
+    // function handleAddPlaceClick() {
+    //   document.querySelector('.form__add-card')
+    //   .classList.add("form_visible");
+    // }
   return (
     <main className="content">
       <section className="profile">
@@ -27,7 +27,7 @@ function Main() {
             <button
               className="profile__image-edit"
               aria-label="Update profile image"
-              onClick={handleEditAvatarClick}
+              onClick={props.onEditAvatar}
             ></button>
             <img className="profile__image" src="#" alt="profile-picture" />
           </div>
@@ -39,14 +39,14 @@ function Main() {
             <button
               className="button profile__edit-button"
               aria-label="Edit button"
-              onClick={handleEditProfileClick}
+              onClick={props.onEditProfile}
             ></button>
           </div>
         </div>
         <button
           className="button profile__add-button"
           aria-label="Add button"
-          onClick={handleAddPlaceClick}
+          onClick={props.onAddPlace}
         ></button>
       </section>
       <section className="cards">
@@ -54,7 +54,11 @@ function Main() {
       </section>
 
       {/* Edit profile */}
-      <PopupWithForm name="edit-profile" title="Edit profile">
+      <PopupWithForm
+        name="edit-profile"
+        title="Edit profile"
+        isOpen={props.isEditProfilePopupOpen}
+      >
         <fieldset className="form__fields">
           <label for="name-input">
             <input
@@ -96,7 +100,11 @@ function Main() {
       </PopupWithForm>
 
       {/* Add new place */}
-      <PopupWithForm name="add-card" title="New place">
+      <PopupWithForm
+        name="add-card"
+        title="New place"
+        isOpen={props.isAddPlacePopupOpen}
+      >
         <fieldset className="form__fields">
           <label for="card-input">
             <input
@@ -136,7 +144,7 @@ function Main() {
       </PopupWithForm>
 
       {/* Delete card */}
-      <PopupWithForm name="delete-image" title="Are you sure?">
+      <PopupWithForm name="delete-image" title="Are you sure?" isOpen={false}>
         <fieldset className="form__fields form__fields-delete">
           <button
             className="form__submit-button"
@@ -150,7 +158,11 @@ function Main() {
       </PopupWithForm>
 
       {/* Change profile picture */}
-      <PopupWithForm name="change-image" title="Change profile picture">
+      <PopupWithForm
+        name="change-image"
+        title="Change profile picture"
+        isOpen={props.isEditAvatarPopupOpen}
+      >
         <fieldset className="form__fields">
           <label for="linkImage-input">
             <input
