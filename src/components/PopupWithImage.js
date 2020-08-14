@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PopupWithImage() {
+function PopupWithImage(props) {
   return (
     <>
       <section className="form form__add-image">
@@ -9,6 +9,7 @@ function PopupWithImage() {
             className="form__reset-button"
             type="reset"
             aria-label="Close button"
+            onClick={props.onClose}
           ></button>
           <img src="#" alt="" className="form__image" />
           <p className="form__image-title"></p>

@@ -3,22 +3,6 @@ import PopupWithForm from "./PopupWithForm";
 import PopupWithImage from "./PopupWithImage";
 
 function Main(props) {
-    // function handleEditAvatarClick() {
-    //   document
-    //     .querySelector('.form__change-image')
-    //     .classList.add('form_visible');
-    // }
-
-    // function handleEditProfileClick() {
-    //   document
-    //     .querySelector('.form__edit-profile')
-    //     .classList.add("form_visible");
-    // }
-
-    // function handleAddPlaceClick() {
-    //   document.querySelector('.form__add-card')
-    //   .classList.add("form_visible");
-    // }
   return (
     <main className="content">
       <section className="profile">
@@ -58,6 +42,7 @@ function Main(props) {
         name="edit-profile"
         title="Edit profile"
         isOpen={props.isEditProfilePopupOpen}
+        onClose={props.onClose}
       >
         <fieldset className="form__fields">
           <label for="name-input">
@@ -104,6 +89,7 @@ function Main(props) {
         name="add-card"
         title="New place"
         isOpen={props.isAddPlacePopupOpen}
+        onClose={props.onClose}
       >
         <fieldset className="form__fields">
           <label for="card-input">
@@ -144,7 +130,12 @@ function Main(props) {
       </PopupWithForm>
 
       {/* Delete card */}
-      <PopupWithForm name="delete-image" title="Are you sure?" isOpen={false}>
+      <PopupWithForm
+        name="delete-image"
+        title="Are you sure?"
+        isOpen={false}
+        onClose={props.onClose}
+      >
         <fieldset className="form__fields form__fields-delete">
           <button
             className="form__submit-button"
@@ -162,6 +153,7 @@ function Main(props) {
         name="change-image"
         title="Change profile picture"
         isOpen={props.isEditAvatarPopupOpen}
+        onClose={props.onClose}
       >
         <fieldset className="form__fields">
           <label for="linkImage-input">

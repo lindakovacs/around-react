@@ -18,6 +18,7 @@ function PopupWithForm(props) {
             className="form__reset-button"
             type="reset"
             aria-label="Close button"
+            onClick={props.onClose}
           ></button>
           <h2 className="form__header">{props.title}</h2>
           {props.children}

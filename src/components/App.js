@@ -17,19 +17,26 @@ function App(props) {
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
+  function closeAllPopups() {
+    setIsAddPlacePopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+  }
+
   return (
-    <body className="root">
+    <>
       <Header />
       <Main
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
+        onClose={closeAllPopups}
         isEditProfilePopupOpen={isEditProfilePopupOpen}
         isAddPlacePopupOpen={isAddPlacePopupOpen}
         isEditAvatarPopupOpen={isEditAvatarPopupOpen}
       />
       <Footer />
-    </body>
+    </>
   );
 }
 
