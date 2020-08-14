@@ -1,5 +1,6 @@
 import React from 'react';
 import PopupWithForm from "./PopupWithForm";
+import PopupWithImage from "./PopupWithImage";
 
 function Main() {
     function handleEditAvatarClick() {
@@ -134,19 +135,6 @@ function Main() {
         </fieldset>
       </PopupWithForm>
 
-      {/* Open image */}
-      <div className="form form__add-image">
-        <div className="form__open-image">
-          <button
-            className="form__reset-button"
-            type="reset"
-            aria-label="Close button"
-          ></button>
-          <img src="#" alt="" className="form__image" />
-          <p className="form__image-title"></p>
-        </div>
-      </div>
-
       {/* Delete card */}
       <PopupWithForm name="delete-image" title="Are you sure?">
         <fieldset className="form__fields form__fields-delete">
@@ -189,6 +177,9 @@ function Main() {
           </button>
         </fieldset>
       </PopupWithForm>
+
+      {/* Open image */}
+      <PopupWithImage />
 
       {/* Template cards */}
       <template className="card-template">
