@@ -1,8 +1,27 @@
 import React from 'react';
-import PopupWithForm from "./PopupWithForm";
-import PopupWithImage from "./PopupWithImage";
+import PopupWithForm from './PopupWithForm';
+import PopupWithImage from './PopupWithImage';
+import api from '../utils/Api'; 
 
 function Main(props) {
+
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then((res) => {
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
   return (
     <main className="content">
       <section className="profile">
@@ -13,12 +32,16 @@ function Main(props) {
               aria-label="Update profile image"
               onClick={props.onEditAvatar}
             ></button>
-            <img className="profile__image" src="#" alt="profile-picture" />
+            <img
+              className="profile__image"
+              src={userAvatar}
+              alt="profile-picture"
+            />
           </div>
           <div className="profile__info">
             <div className="profile__text">
-              <h1 className="profile__title">Linda Kovacs</h1>
-              <p className="profile__subtitle">Web Developer</p>
+              <h1 className="profile__title">{userName}</h1>
+              <p className="profile__subtitle">{userDescription}</p>
             </div>
             <button
               className="button profile__edit-button"
