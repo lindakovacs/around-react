@@ -1,13 +1,16 @@
 import React from 'react';
+import api from '../utils/Api'; 
+import Card from "./Card";
 import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
-import api from '../utils/Api'; 
 
 function Main(props) {
 
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api
@@ -20,10 +23,22 @@ function Main(props) {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, [userName, userDescription, userAvatar]);
+
+  React.useEffect(() => {
+    api
+      .getInitialCards()
+      .then((data) => {
+        setCards((cards) => [...cards, ...data]);
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
-    <main className="content">
+    <>
       <section className="profile">
         <div className="profile__container">
           <div className="profile__image-container">
@@ -56,9 +71,6 @@ function Main(props) {
           onClick={props.onAddPlace}
         ></button>
       </section>
-      <section className="cards">
-        <ul className="cards__grid">{/* Template cards */}</ul>
-      </section>
 
       {/* Edit profile */}
       <PopupWithForm
@@ -68,34 +80,30 @@ function Main(props) {
         onClose={props.onClose}
       >
         <fieldset className="form__fields">
-          <label for="name-input">
             <input
               type="text"
               className="form__input form__title"
               id="name-input"
               name="name"
               placeholder="Name"
-              value="Jacques Cousteau"
-              minlength="2"
-              maxlength="40"
+              minLength="2"
+              maxLength="40"
               required
             />
             <span className="form__input-error" id="name-input-error"></span>
-          </label>
-          <label for="job-input">
+
             <input
               type="text"
               className="form__input form__subtitle"
               id="job-input"
               name="job"
               placeholder="Job"
-              value="Explorer"
-              minlength="2"
-              maxlength="200"
+              minLength="2"
+              maxLength="200"
               required
             />
             <span className="form__input-error" id="job-input-error"></span>
-          </label>
+
           <button
             className="form__submit-button"
             type="submit"
@@ -115,32 +123,26 @@ function Main(props) {
         onClose={props.onClose}
       >
         <fieldset className="form__fields">
-          <label for="card-input">
             <input
               type="text"
               className="form__input form__card-title"
               id="card-input"
               name="title"
               placeholder="Title"
-              value=""
-              minlength="1"
-              maxlength="30"
+              minLength="1"
+              maxLength="30"
               required
             />
             <span className="form__input-error" id="card-input-error"></span>
-          </label>
-          <label for="link-input">
             <input
               type="url"
               className="form__input form__image-link"
               id="link-input"
               name="link"
               placeholder="Image link"
-              value=""
               required
             />
             <span className="form__input-error" id="link-input-error"></span>
-          </label>
           <button
             className="form__submit-button"
             type="submit"
@@ -179,21 +181,19 @@ function Main(props) {
         onClose={props.onClose}
       >
         <fieldset className="form__fields">
-          <label for="linkImage-input">
             <input
               type="url"
               className="form__input form__image-link"
               id="linkImage-input"
               name="imageLink"
               placeholder="Image link"
-              value=""
+              minLength="2"
               required
             />
             <span
               className="form__input-error"
               id="linkImage-input-error"
             ></span>
-          </label>
           <button
             className="form__submit-button"
             type="submit"
@@ -206,33 +206,24 @@ function Main(props) {
       </PopupWithForm>
 
       {/* Open image */}
-      <PopupWithImage />
+      <PopupWithImage
+      onClose={props.onClose}
+      card={props.selectedCard}
+      />
 
-      {/* Template cards */}
-      <template className="card-template">
-        <li className="card">
-          <div className="card__container">
-            <button
-              type="button"
-              className="card__delete-button"
-              aria-label="Delete button"
-            ></button>
-            <div className="card__image"></div>
-            <div className="card__text">
-              <h2 className="card__title"></h2>
-              <div className="card__like-container">
-                <button
-                  type="button"
-                  className="card__like-button"
-                  aria-label="Like button"
-                ></button>
-                <p className="card__like-counter"></p>
-              </div>
-            </div>
-          </div>
-        </li>
-      </template>
-    </main>
+      {/* Template initial cards */}
+      <section className="cards">
+        <ul className="cards__grid">
+
+          {cards.map((card) => (
+            <Card key={card._id} 
+            card={card} 
+            onCardClick={props.onCardClick} />
+          ))}
+
+        </ul>
+      </section>
+    </>
   );
 }
 export default Main;

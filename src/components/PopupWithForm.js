@@ -12,7 +12,7 @@ function PopupWithForm(props) {
           className="form__container"
           name={`form__${props.name}`}
           action="#"
-          novalidate
+          noValidate
         >
           <button
             className="form__reset-button"
