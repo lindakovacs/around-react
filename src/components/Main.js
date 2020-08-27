@@ -3,27 +3,15 @@ import api from '../utils/Api';
 import Card from "./Card";
 import PopupWithForm from './PopupWithForm';
 import PopupWithImage from './PopupWithImage';
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
+  // const [userName, setUserName] = React.useState('');
+  // const [userDescription, setUserDescription] = React.useState('');
+  // const [userAvatar, setUserAvatar] = React.useState('');
 
   const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [userName, userDescription, userAvatar]);
+  const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
     api
@@ -31,7 +19,6 @@ function Main(props) {
       .then((data) => {
         setCards((cards) => [...cards, ...data]);
       })
-
       .catch((err) => {
         console.log(err);
       });
@@ -49,14 +36,14 @@ function Main(props) {
             ></button>
             <img
               className="profile__image"
-              src={userAvatar}
+              src={currentUser.avatar}
               alt="profile-picture"
             />
           </div>
           <div className="profile__info">
             <div className="profile__text">
-              <h1 className="profile__title">{userName}</h1>
-              <p className="profile__subtitle">{userDescription}</p>
+              <h1 className="profile__title">{currentUser.name}</h1>
+              <p className="profile__subtitle">{currentUser.about}</p>
             </div>
             <button
               className="button profile__edit-button"
@@ -80,29 +67,29 @@ function Main(props) {
         onClose={props.onClose}
       >
         <fieldset className="form__fields">
-            <input
-              type="text"
-              className="form__input form__title"
-              id="name-input"
-              name="name"
-              placeholder="Name"
-              minLength="2"
-              maxLength="40"
-              required
-            />
-            <span className="form__input-error" id="name-input-error"></span>
+          <input
+            type="text"
+            className="form__input form__title"
+            id="name-input"
+            name="name"
+            placeholder="Name"
+            minLength="2"
+            maxLength="40"
+            required
+          />
+          <span className="form__input-error" id="name-input-error"></span>
 
-            <input
-              type="text"
-              className="form__input form__subtitle"
-              id="job-input"
-              name="job"
-              placeholder="Job"
-              minLength="2"
-              maxLength="200"
-              required
-            />
-            <span className="form__input-error" id="job-input-error"></span>
+          <input
+            type="text"
+            className="form__input form__subtitle"
+            id="job-input"
+            name="job"
+            placeholder="Job"
+            minLength="2"
+            maxLength="200"
+            required
+          />
+          <span className="form__input-error" id="job-input-error"></span>
 
           <button
             className="form__submit-button"
@@ -123,26 +110,26 @@ function Main(props) {
         onClose={props.onClose}
       >
         <fieldset className="form__fields">
-            <input
-              type="text"
-              className="form__input form__card-title"
-              id="card-input"
-              name="title"
-              placeholder="Title"
-              minLength="1"
-              maxLength="30"
-              required
-            />
-            <span className="form__input-error" id="card-input-error"></span>
-            <input
-              type="url"
-              className="form__input form__image-link"
-              id="link-input"
-              name="link"
-              placeholder="Image link"
-              required
-            />
-            <span className="form__input-error" id="link-input-error"></span>
+          <input
+            type="text"
+            className="form__input form__card-title"
+            id="card-input"
+            name="title"
+            placeholder="Title"
+            minLength="1"
+            maxLength="30"
+            required
+          />
+          <span className="form__input-error" id="card-input-error"></span>
+          <input
+            type="url"
+            className="form__input form__image-link"
+            id="link-input"
+            name="link"
+            placeholder="Image link"
+            required
+          />
+          <span className="form__input-error" id="link-input-error"></span>
           <button
             className="form__submit-button"
             type="submit"
@@ -181,19 +168,16 @@ function Main(props) {
         onClose={props.onClose}
       >
         <fieldset className="form__fields">
-            <input
-              type="url"
-              className="form__input form__image-link"
-              id="linkImage-input"
-              name="imageLink"
-              placeholder="Image link"
-              minLength="2"
-              required
-            />
-            <span
-              className="form__input-error"
-              id="linkImage-input-error"
-            ></span>
+          <input
+            type="url"
+            className="form__input form__image-link"
+            id="linkImage-input"
+            name="imageLink"
+            placeholder="Image link"
+            minLength="2"
+            required
+          />
+          <span className="form__input-error" id="linkImage-input-error"></span>
           <button
             className="form__submit-button"
             type="submit"
@@ -206,21 +190,14 @@ function Main(props) {
       </PopupWithForm>
 
       {/* Open image */}
-      <PopupWithImage
-      onClose={props.onClose}
-      card={props.selectedCard}
-      />
+      <PopupWithImage onClose={props.onClose} card={props.selectedCard} />
 
       {/* Template initial cards */}
       <section className="cards">
         <ul className="cards__grid">
-
           {cards.map((card) => (
-            <Card key={card._id} 
-            card={card} 
-            onCardClick={props.onCardClick} />
+            <Card key={card._id} card={card} onCardClick={props.onCardClick} />
           ))}
-
         </ul>
       </section>
     </>
