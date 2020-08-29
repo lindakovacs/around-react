@@ -12,6 +12,65 @@ function Main(props) {
 
   const [cards, setCards] = React.useState([]);
   const currentUser = React.useContext(CurrentUserContext);
+  // const [deletedCard, setDeletedCard] = React.useState(null);
+
+  function handleCardLike(card) {
+    // Check one more time if this card was already liked
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    // Send a request to the API and getting the updated card data
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        // Create a new array based on the existing one and putting a new card into it
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        // Update the state
+        setCards(newCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // function handleCardDelete(deletedCard) {
+  //   api
+  //     .deleteCard(deletedCard._id)
+  //     .then(() => {
+  //       const remainingCards = cards.filter(
+  //         (card) => card._id !== deletedCard._id
+  //       );
+  //       setCards(remainingCards);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
+
+  function handleCardDelete(card) {
+    // const isOwn = card.owner._id === currentUser._id;
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards(cards.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // function handleCardDelete(card) {
+  //   api
+  //     .deleteCard(card._id)
+  //     .then(() => {
+  //       const remainingCards = cards.filter(
+  //         (c) => c._id !== c._id
+  //       );
+  //       setCards(remainingCards);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
 
   React.useEffect(() => {
     api
@@ -23,7 +82,6 @@ function Main(props) {
         console.log(err);
       });
   }, []);
-
   return (
     <>
       <section className="profile">
@@ -196,7 +254,13 @@ function Main(props) {
       <section className="cards">
         <ul className="cards__grid">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={props.onCardClick} />
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={props.onCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
           ))}
         </ul>
       </section>
