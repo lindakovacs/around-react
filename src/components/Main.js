@@ -71,6 +71,9 @@ function Main(props) {
   //       console.log(err);
   //     });
   // }
+  React.useEffect(() => {
+    setCards(cards);
+  }, [cards]);
 
   React.useEffect(() => {
     api
@@ -82,6 +85,8 @@ function Main(props) {
         console.log(err);
       });
   }, []);
+
+
   return (
     <>
       <section className="profile">
@@ -116,49 +121,6 @@ function Main(props) {
           onClick={props.onAddPlace}
         ></button>
       </section>
-
-      {/* Edit profile */}
-      <PopupWithForm
-        name="edit-profile"
-        title="Edit profile"
-        isOpen={props.isEditProfilePopupOpen}
-        onClose={props.onClose}
-      >
-        <fieldset className="form__fields">
-          <input
-            type="text"
-            className="form__input form__title"
-            id="name-input"
-            name="name"
-            placeholder="Name"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span className="form__input-error" id="name-input-error"></span>
-
-          <input
-            type="text"
-            className="form__input form__subtitle"
-            id="job-input"
-            name="job"
-            placeholder="Job"
-            minLength="2"
-            maxLength="200"
-            required
-          />
-          <span className="form__input-error" id="job-input-error"></span>
-
-          <button
-            className="form__submit-button"
-            type="submit"
-            value="Save"
-            aria-label="Save button"
-          >
-            Save
-          </button>
-        </fieldset>
-      </PopupWithForm>
 
       {/* Add new place */}
       <PopupWithForm
@@ -218,35 +180,7 @@ function Main(props) {
         </fieldset>
       </PopupWithForm>
 
-      {/* Change profile picture */}
-      <PopupWithForm
-        name="change-image"
-        title="Change profile picture"
-        isOpen={props.isEditAvatarPopupOpen}
-        onClose={props.onClose}
-      >
-        <fieldset className="form__fields">
-          <input
-            type="url"
-            className="form__input form__image-link"
-            id="linkImage-input"
-            name="imageLink"
-            placeholder="Image link"
-            minLength="2"
-            required
-          />
-          <span className="form__input-error" id="linkImage-input-error"></span>
-          <button
-            className="form__submit-button"
-            type="submit"
-            value="Save"
-            aria-label="Save button"
-          >
-            Save
-          </button>
-        </fieldset>
-      </PopupWithForm>
-
+      
       {/* Open image */}
       <PopupWithImage onClose={props.onClose} card={props.selectedCard} />
 
