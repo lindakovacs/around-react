@@ -10,8 +10,8 @@ function EditProfilePopup(props) {
     // After loading the current user from the API
   // their data will be used in managed components.
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    setName(currentUser && currentUser.name);
+    setDescription(currentUser && currentUser.about);
   }, [currentUser]);
 
   function handleNameChange(e) {
@@ -50,7 +50,7 @@ function EditProfilePopup(props) {
           minLength="2"
           maxLength="40"
           required
-          value={name}
+          value={name || ""}
           onChange={handleNameChange}
         />
         <span className="form__input-error" id="name-input-error"></span>
@@ -64,7 +64,7 @@ function EditProfilePopup(props) {
           minLength="2"
           maxLength="200"
           required
-          value={description}
+          value={description || ""}
           onChange={handleDescriptionChange}
         />
         <span className="form__input-error" id="job-input-error"></span>

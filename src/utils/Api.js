@@ -4,9 +4,9 @@ class Api {
     this._headers = headers;
   }
 
-  getAppInfo() {
-    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
-  }
+  // getAppInfo() {
+  //   return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+  // }
 
   // Load Cards from the Server
   getInitialCards() {
@@ -35,11 +35,11 @@ class Api {
   }
 
   // Update Profile Picture
-  setUserAvatar(avatar) {
+  updateAvatar(imageLink) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,
       method: "PATCH",
-      body: JSON.stringify({ avatar: avatar.imageLink }),
+      body: JSON.stringify({ avatar: imageLink }),
     })
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
@@ -50,14 +50,11 @@ class Api {
   }
 
   // Edit Profile
-  setUserProfile(data) {
+  updateProfile(name, about) {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "PATCH",
-      body: JSON.stringify({
-        name: data.name,
-        about: data.job,
-      }),
+      body: JSON.stringify({ name, about }),
     })
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
@@ -68,7 +65,7 @@ class Api {
   }
 
   // Add New Card
-  addCard(data) {
+  addNewCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
       method: "POST",
@@ -100,20 +97,20 @@ class Api {
   }
 
   // Add and Remove Likes
-    changeLikeCardStatus({ isLiked, cardId }) {
-      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-        headers: this._headers,
-        // method: isLiked ? "PUT" : "DELETE",
-        method: isLiked ? "DELETE" : "PUT",
-      })
-        .then((res) =>
-          res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
-        )
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  changeLikeCardStatus(cardId, isLiked) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      headers: this._headers,
+      // method: isLiked ? "PUT" : "DELETE",
+      method: isLiked ? "DELETE" : "PUT",
+    })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+      )
+      .catch((err) => {
+        console.log(err);
+      });
   }
+}
 
   // Add and Remove Likes
   // changeLikeCardStatus(isLiked, cardId) {
