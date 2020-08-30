@@ -23,22 +23,6 @@ function Card(props) {
 
   const likesNumber = props.card.likes.length;
 
-  // function handleCardClick() {
-  //   props.onCardClick(props.card);	        
-  // }
-
-  // function handleLikeClick(e) {
-  //     e.stopPropagation();
-  //     e.preventDefault();
-  //     props.onCardLike(props.card);
-  // }
-
-  // function handleCardDelete(e) {
-  //     e.stopPropagation();
-  //     e.preventDefault();
-  //     props.onCardDelete(props.card);
-  // }
-
   return (
     <>
       <li key={props.card._id} className="card">

@@ -80,20 +80,6 @@ function App() {
       });
   }
 
-  // function handleCardDelete(deletedCard) {
-  //   api
-  //     .deleteCard(deletedCard._id)
-  //     .then(() => {
-  //       const remainingCards = cards.filter(
-  //         (card) => card._id !== deletedCard._id
-  //       );
-  //       setCards(remainingCards);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
-
   function handleCardDelete(card) {
     // const isOwn = card.owner._id === currentUser._id;
     api
@@ -105,20 +91,6 @@ function App() {
         console.log(err);
       });
   }
-
-  // function handleCardDelete(card) {
-  //   api
-  //     .deleteCard(card._id)
-  //     .then(() => {
-  //       const remainingCards = cards.filter(
-  //         (c) => c._id !== c._id
-  //       );
-  //       setCards(remainingCards);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
 
   function handleAddPlace({ title, link }) {
     api.addNewCard({ title, link }).then((newCard) => {
@@ -137,23 +109,6 @@ function App() {
         console.log(err);
       });
   }, []);
-
-  // React.useEffect(() => {
-  //   api
-  //     .getUserInfo()
-  //     .then((res) => {
-  //       setUserName(res.name);
-  //       setUserDescription(res.about);
-  //       setUserAvatar(res.avatar);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [userName, userDescription, userAvatar]);
-
-  // React.useEffect(() => {
-  //   setCards(cards);
-  // }, [cards]);
 
   React.useEffect(() => {
     api
