@@ -45,9 +45,7 @@ The website was made up according to the Figma layout requirements:
 
 All the images and profile info are pulled from the shared server.
 
-### Demo
-
-[Demo link](https://lindakovacs.github.io/around_react/)
+[Demo link](https://lindakovacs.github.io/around-react/)
 
 
 ## Create React App
